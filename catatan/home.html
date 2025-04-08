@@ -1,47 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catatan | Extrachive</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="home.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catatan | Exxracive</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>Catatan</h1>
-        </header>
-        <main class="main">
-            <form action="" method="post">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" class="search-input" placeholder="Cari catatan...">
-                    <button class="search-btn" id="searchButton">
-                        <i class="ph ph-magnifying-glass"></i>
-                    </button>
-                </div>
-            </form>
-        </main>
+  <header>
+    <h1>Catatan Pribadi</h1>
+  </header>
 
-        <div class="note-container">
-            <div class="note">
-                <div class="note-title">
-                    <h1>Judul</h1>
-                    <p>Tanggal: 2021-01-01</p>
-                </div>
-                <div class="note-content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Donec vel libero ac velit fermentum malesuada...</p>
-                </div>
+  <main class="container">
+    <section class="note-form">
+      <h2>Tambah Catatan</h2>
+      <form>
+        <input type="text" placeholder="Judul catatan" required />
+        <textarea placeholder="Isi catatan..." required></textarea>
+        <button type="submit">Simpan</button>
+      </form>
+    </section>
+
+    <section class="note-list">
+        <div class="note-card">
+            <div class="note-card-header">
+              <h3>Contoh Catatan</h3>
+              <div class="menu-wrapper">
+                <button class="menu-toggle">⋮</button>
+            <div class="note-menu">
+              <button>Edit</button>
+              <button>Hapus</button>
             </div>
+          </div>
         </div>
-        <footer class="btn-tambah">
-            <a href="tambah.html">
-                <button class="btn-add">
-                    <i class="ph ph-plus"></i>
-                </button>
-            </a>
-        </footer>
-    </div>
+            <p>Ini adalah isi catatan yang bisa kamu edit nanti.</p>
+        </div>          
+    </section>
+  </main>
+
+  <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" id="fab"><p>+</p></button>
+        <div class="fab-menu" id="fabMenu">
+            <button>Aksi 1</button>
+            <button>Aksi 2</button>
+            <button>Aksi 3</button>
+        </div>
+  </div>
+
+  <script>
+    addEventListener("DOMContentLoaded" ,function(){
+        document.addEventListener('click', function (e) {
+        const allMenus = document.querySelectorAll('.note-menu');
+        const allToggles = document.querySelectorAll('.menu-toggle');
+    
+        allMenus.forEach(menu => menu.style.display = 'none');
+    
+        if (e.target.classList.contains('menu-toggle')) {
+            const menu = e.target.nextElementSibling;
+            menu.style.display = 'flex';
+        }
+        });
+    })
+  </script>
+  
 </body>
 </html>
