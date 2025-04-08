@@ -1,0 +1,110 @@
+*,body{
+   margin: 0;
+   padding: 0; 
+}
+
+.container{
+    height: 100%;
+}
+
+.header{
+    font-family: sans-serif;
+    background-color: #e5d9f2;
+    padding: 10px;
+    text-align: center;
+}
+
+.header h1{
+    color: #a594f9;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.main{
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar{
+    margin: 10px auto;
+    width: 90%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-input{
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+.search-btn{
+    position: absolute;
+    right: 5.5%;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #00000000;
+    border: none;
+}
+
+.search-btn i {
+    font-size: 18px;
+    color: #000000;
+    font-weight: bolder;
+}
+
+.note-container{
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    cursor: pointer;
+}
+
+.note-title h1{
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.note-title p{
+    font-size: 14px;
+    color: #888888;
+    margin-bottom: 10px;
+}
+
+.note-content p{
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.btn-tambah{
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    border: none;
+}
+
+.btn-add{
+    border: none;
+    cursor: pointer;
+}
+
+.btn-add i{
+    background-color: #a594f9;
+    color: #e5d9f2;
+    padding: 19px 20px;
+    border-radius: 100%;
+    font-size: 16px;
+    font-weight: bold;
+}
