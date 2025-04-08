@@ -53,4 +53,41 @@ class catatancontroller extends Controller
 
         }
     }
+
+    public function editcatatan(string $id,Request $request){
+        try{
+            JWTAuth::parseToken()->authenticate();
+            $request->validate([
+                "judul" => "required|min:5",
+                "catatan" => "required|min:10"
+            ]);
+            $data = catatan::where("id",$id)->first();
+            if(!$data){
+                return response()->json(["error" => "data tidak ada"],404);
+            }
+            $data->judul = $request->judul;
+            $data->catatan = $request->catatan;
+            $data->save();
+
+            return response()->json($data);
+
+        }catch(Exception $e){
+            return response()->json(["error" => "not error","message" => $e],500);
+        }
+    }
+
+    public function hapuscatatan(string $id){
+        try{
+            JWTAuth::parseToken()->authenticate();
+            $data = catatan::where("id",$id)->first();
+            if(!$data){
+                return response()->json(["error" => "data tidak ada"],404);
+            }
+            $data->delete();
+
+            return response()->json(["success" => "catatan berhasil di hapus"],200);
+        }catch(Exception $e){
+            return response()->json(["error" => "not error","message" => $e],500);
+        }
+    }
 }

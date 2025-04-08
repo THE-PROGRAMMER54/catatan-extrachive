@@ -22,10 +22,20 @@ class usercontroller extends Controller
                 ]
             );
 
+            $email = $request->email;
+
+            if(!Str::endsWith($email,["@gmail.com","@yahoo.com"])){
+
+                if(!Str::endsWith($email,[".com"])){
+                    $email = $email .= ".com";
+                }
+
+            }
+
             $user = new User();
             $user->id = Str::uuid();
             $user->name = $request->name;
-            $user->email = $request->email;
+            $user->email = $email;
             $user->password = bcrypt($request->password);
             $user->save();
             return response()->json(['success' => "berhasil membuat akun"], 201);
