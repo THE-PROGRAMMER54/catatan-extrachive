@@ -40,16 +40,43 @@ document.addEventListener("DOMContentLoaded",function(){
     }
 
     if(document.getElementById("login")){
-        document.getElementById("login").addEventListener("submit",function(e){
+        document.getElementById("login").addEventListener("submit", function(e) {
             e.preventDefault();
-
-            const email = document.getElementById("email").value
-            const password = document.getElementById("password").value
+        
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
             
-            console.log(email)
-            console.log(password)
-
-            console.log("regist di klik")
-        })
+            fetch("http://127.0.0.1:8000/api/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        const errorMessage = errorData.message || "Login failed";
+                        throw new Error(errorMessage);
+                    });
+                }
+                return response.json()
+            })
+            .then(data => {
+                console.log("Respon dari API:", data);
+                if (data.token) {
+                    localStorage.setItem("token",data.token)
+                    alert("Login berhasil!");
+                    window.location.href = "home.html";
+                } else {
+                    alert("Login gagal, token tidak ada.");
+                }
+            })
+            .catch(error => {
+                console.log("Gagal Login:", error);
+                alert("Gagal login: " + error.message);
+            });
+        });        
     }
 })
