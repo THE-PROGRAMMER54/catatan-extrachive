@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div class="container">
+    <h2>Registrasi</h2>
+    <form id="regist" method="POST">
+      <input type="text" id="name" name="name" placeholder="Nama Lengkap" required>
+      <input type="email" name="email" id="email" placeholder="Email" required>
+      <input type="password" name="password" id="password" min="8" placeholder="Password" required>
+      <input type="password" name="confirm_password" id="confirm_password" min="8" placeholder="Konfirmasi Password" required>
+      <button type="submit">Daftar</button>
+    </form>
+    <p>Sudah punya akun? <a href="index.html">Login di sini</a></p>
+  </div>
+  
+  <script src="js/loginRegist.js"></script>
+</body>
+</html>
