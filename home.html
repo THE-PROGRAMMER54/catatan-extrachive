@@ -39,7 +39,6 @@
     </section>
   </main>
 
-  <!-- Floating Action Button -->
     <div class="fab-container">
         <button class="fab" id="fab"><p>+</p></button>
         <div class="fab-menu" id="fabMenu">
@@ -49,21 +48,6 @@
         </div>
   </div>
 
-  <script>
-    addEventListener("DOMContentLoaded" ,function(){
-        document.addEventListener('click', function (e) {
-        const allMenus = document.querySelectorAll('.note-menu');
-        const allToggles = document.querySelectorAll('.menu-toggle');
-    
-        allMenus.forEach(menu => menu.style.display = 'none');
-    
-        if (e.target.classList.contains('menu-toggle')) {
-            const menu = e.target.nextElementSibling;
-            menu.style.display = 'flex';
-        }
-        });
-    })
-  </script>
-  
+  <script src="js/home.js"></script>
 </body>
 </html>

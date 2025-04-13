@@ -133,62 +133,56 @@
     z-index: 1000;
   }
 
-.fab {
-  width: 60px;
-  height: 60px;
-  background-color: var(--primary);
-  border: none;
-  border-radius: 50%;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-}
+  .fab {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+  }
 
-.fab p{
-  margin-bottom: 5px;
-}
+  .fab p{
+    margin-bottom: 5px;
+  }
 
-.fab:hover {
-  transform: rotate(45deg);
-}
+  .fab.rotate {
+    transform: rotate(90deg);
+  }
 
-/* Menu default (hidden) */
-.fab-menu {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  margin-bottom: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-}
+ /* FAB Menu default: disembunyikan */
+  .fab-menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
 
-/* Tampilkan menu saat hover */
-.fab-container:hover .fab-menu {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
+  /* Saat aktif via JS */
+  .fab-menu.show {
+    display: flex;
+  }
 
-.fab-menu button {
-  padding: 0.6rem 1rem;
-  border: none;
-  background-color: white;
-  color: #333;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: background 0.3s ease;
-}
+  .fab-menu button {
+    padding: 0.6rem 1rem;
+    border: none;
+    background-color: white;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.3s ease;
+  }
 
-.fab-menu button:hover {
-  background-color: var(--secondary);
-}
+  .fab-menu button:hover {
+    background-color: var(--secondary);
+  }
 
   /* Responsive */
   @media (max-width: 768px) {
