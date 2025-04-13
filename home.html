@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catatan | Exxracive</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <h1>Catatan Pribadi</h1>
+  </header>
+
+  <main class="container">
+    <section class="note-form">
+      <h2>Tambah Catatan</h2>
+      <form>
+        <input type="text" placeholder="Judul catatan" required />
+        <textarea placeholder="Isi catatan..." required></textarea>
+        <button type="submit">Simpan</button>
+      </form>
+    </section>
+
+    <section class="note-list">
+        <div class="note-card">
+            <div class="note-card-header">
+              <h3>Contoh Catatan</h3>
+              <div class="menu-wrapper">
+                <button class="menu-toggle">⋮</button>
+            <div class="note-menu">
+              <button>Edit</button>
+              <button>Hapus</button>
+            </div>
+          </div>
+        </div>
+            <p>Ini adalah isi catatan yang bisa kamu edit nanti.</p>
+        </div>          
+    </section>
+  </main>
+
+  <!-- Floating Action Button -->
+    <div class="fab-container">
+        <button class="fab" id="fab"><p>+</p></button>
+        <div class="fab-menu" id="fabMenu">
+            <button>Aksi 1</button>
+            <button>Aksi 2</button>
+            <button>Aksi 3</button>
+        </div>
+  </div>
+
+  <script>
+    addEventListener("DOMContentLoaded" ,function(){
+        document.addEventListener('click', function (e) {
+        const allMenus = document.querySelectorAll('.note-menu');
+        const allToggles = document.querySelectorAll('.menu-toggle');
+    
+        allMenus.forEach(menu => menu.style.display = 'none');
+    
+        if (e.target.classList.contains('menu-toggle')) {
+            const menu = e.target.nextElementSibling;
+            menu.style.display = 'flex';
+        }
+        });
+    })
+  </script>
+  
+</body>
+</html>
