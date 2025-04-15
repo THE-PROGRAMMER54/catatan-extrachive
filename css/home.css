@@ -84,22 +84,22 @@
   .menu-wrapper {
     position: relative;
   }
-  
   .menu-toggle {
     background: transparent;
     border: none;
-    margin-bottom: 10px;
     font-size: 1.5rem;
     cursor: pointer;
-    padding: 0 5px;
+    padding: 5px;
     color: #555;
-  }
-
-  .menu-toggle:hover{
-    background-color: #bcb7b7;
-    width: 50px;
-    height: 50px;
+    right: 30px;
     border-radius: 50%;
+    transition: background-color 0.2s ease;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .menu-toggle:hover {
+    background-color: #d1c4f7;
   }
   
   .note-menu {
