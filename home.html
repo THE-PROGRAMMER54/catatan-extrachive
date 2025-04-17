@@ -15,9 +15,9 @@
   <main class="container">
     <section class="note-form">
       <h2>Tambah Catatan</h2>
-      <form>
-        <input type="text" placeholder="Judul catatan" required />
-        <textarea placeholder="Isi catatan..." required></textarea>
+      <form method="post" onsubmit="addcatatan(event)">
+        <input type="text" id="judul" name="judul" placeholder="Judul catatan" required />
+        <textarea name="catatan" id="catatan" placeholder="Isi catatan..." required></textarea>
         <button type="submit">Simpan</button>
       </form>
     </section>

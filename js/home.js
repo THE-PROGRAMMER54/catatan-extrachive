@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded",async function () {
     const fab = document.getElementById('fab');
     const fabMenu = document.getElementById('fabMenu');
 
@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
     
+    // ambil data
     async function getdata() {
       await fetch("http://127.0.0.1:8000/api/home", {
         method: "GET",
@@ -38,8 +39,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="menu-wrapper">
                   <button class="menu-toggle" data-id="${data.id}">⋮</button>
                   <div class="note-menu">
-                    <button>Edit</button>
-                    <button>Hapus</button>
+                    <button onclick="Edit(${data.id})">Edit</button>
+                    <button >Hapus</button>
                   </div>
                 </div>
               </div>
@@ -50,6 +51,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         listNote.innerHTML = note.join("");
+
+        if(res.data <= 0){
+            listNote.style.display = "none"
+        }else{
+            listNote.style.display = "block"
+        }
     
         document.querySelectorAll(".menu-toggle").forEach(toggle => {
           toggle.addEventListener("click", function (e) {
@@ -74,6 +81,52 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error:", error.message);
       });
     }
-    
-getdata();
-});
+    getdata();
+  });
+  
+  // tambah data
+  async function addcatatan(e){
+    e.preventDefault();
+    await fetch("http://127.0.0.1:8000/api/addcatatan",{
+      method: 'POST',
+      headers:{
+        'Content-Type' : 'application/json',
+        'authorization' : 'bearer ' + localStorage.getItem("token")
+      },
+      body: JSON.stringify({
+        judul : document.getElementById("judul").value,
+        catatan : document.getElementById("catatan").value
+      })
+    }).then(async response => {
+        data = await response.json()
+        if(!response.ok){
+            throw new Error("Gagal mengirim data " + data.message);   
+        }
+        console.log('Catatan berhasil disimpan:', data);
+        alert("Data berhasil di simpan")
+        location.reload();
+    }).catch(error => {
+        console.error("Error:", error.message);
+    })
+  }
+
+  // ambil data berdasarkan id untuk di edit
+  async function Edit(id){
+    await fetch(`http://127.0.0.1:8000/api/geteditcatatan/${id}`,{
+      method: 'POST',
+      headers:{
+        'Content-Type' : 'application/json',
+        'authorization' : `bearer ${localStorage.getItem("token")}`
+      },
+      body: {
+        id: id
+      }
+    }).then(async jawa => {
+      const res = await jawa.json()
+      console.log(res);
+      document.getElementById("judul").value = res.judul
+      document.getElementById("catatan").value = res.catatan
+      localStorage.setItem("editJudul",res.judul)
+      localStorage.setItem("editCatatan",res.catatan)
+    })
+  }
