@@ -31,32 +31,33 @@ document.addEventListener("DOMContentLoaded",async function () {
         const listNote = document.querySelector(".note-list");
         const note = [];
     
-        res && res.data.map(data => {
-          const card = `
-            <div class="note-card">
-              <div class="note-card-header">
-                <h3>${data.judul}</h3>
-                <div class="menu-wrapper">
-                  <button class="menu-toggle" data-id="${data.id}">⋮</button>
-                  <div class="note-menu">
-                    <button onclick="Edit(${data.id})">Edit</button>
-                    <button >Hapus</button>
+        if(res.data != 0){
+          res && res.data.map(data => {
+            const card = `
+              <div class="note-card">
+                <div class="note-card-header">
+                  <h3>${data.judul}</h3>
+                  <div class="menu-wrapper">
+                    <button class="menu-toggle" data-id="${data.id}">⋮</button>
+                    <div class="note-menu">
+                      <button onclick="Edit(${data.id})">Edit</button>
+                      <button onclick="hapus(${data.id})">Hapus</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <p>${data.catatan}</p>
-            </div>
-          `;
+                <p>${data.catatan}</p>
+              </div>`
+            note.push(card);
+          });
+        }else{
+          const card = `
+          <div class="note-card">
+           <p style="text-align: center; justify-content: center; display: flex; color: rgb(137, 135, 135);">Tidak Ada Catatan</p>
+          </div>`
           note.push(card);
-        });
+        }
 
         listNote.innerHTML = note.join("");
-
-        if(res.data <= 0){
-            listNote.style.display = "none"
-        }else{
-            listNote.style.display = "block"
-        }
     
         document.querySelectorAll(".menu-toggle").forEach(toggle => {
           toggle.addEventListener("click", function (e) {
@@ -82,12 +83,45 @@ document.addEventListener("DOMContentLoaded",async function () {
       });
     }
     getdata();
+    const id = localStorage.getItem("id_catatan")
+    const judul = localStorage.getItem("editJudul")
+    const catatan = localStorage.getItem("editCatatan")
+    document.getElementById("id_catatan").value = id
+    document.getElementById("judul").value = judul
+    document.getElementById("catatan").value = catatan
+    const btn = document.getElementById("btn")
+    
+    if (id) {
+      isiBtn = `
+        <button type="submit" class="edit">Simpan</button>
+        <button type="button" class="batal">Batalkan</button>
+      `;
+    } else {
+      isiBtn = `<button class="tambah" type="submit">Tambah</button>`;
+    }
+    
+    btn.innerHTML = isiBtn;
+    const resetButton = document.querySelector(".batal");
+    if (resetButton) {
+      resetButton.addEventListener("click", function () {
+        reset();
+      });
+    }
+    
   });
   
   // tambah data
   async function addcatatan(e){
     e.preventDefault();
-    await fetch("http://127.0.0.1:8000/api/addcatatan",{
+    const id = document.getElementById("id_catatan").value
+    url = "";
+    if(id !== ""){
+      url = `http://127.0.0.1:8000/api/editcatatan/${id}`
+    }else{
+      url = "http://127.0.0.1:8000/api/addcatatan"
+    }
+
+    await fetch(url,{
       method: 'POST',
       headers:{
         'Content-Type' : 'application/json',
@@ -100,13 +134,19 @@ document.addEventListener("DOMContentLoaded",async function () {
     }).then(async response => {
         data = await response.json()
         if(!response.ok){
-            throw new Error("Gagal mengirim data " + data.message);   
+            throw new Error("Gagal mengirim data " + data.message);
         }
         console.log('Catatan berhasil disimpan:', data);
-        alert("Data berhasil di simpan")
+        
+        if(id !== ""){
+          alert("Berhasil Mengedit Data");
+        }else{
+          alert("Berhasil Menambahkan Data");
+        }
+        
         location.reload();
     }).catch(error => {
-        console.error("Error:", error.message);
+        console.error("Error: ",error.message);
     })
   }
 
@@ -123,10 +163,49 @@ document.addEventListener("DOMContentLoaded",async function () {
       }
     }).then(async jawa => {
       const res = await jawa.json()
-      console.log(res);
-      document.getElementById("judul").value = res.judul
-      document.getElementById("catatan").value = res.catatan
       localStorage.setItem("editJudul",res.judul)
       localStorage.setItem("editCatatan",res.catatan)
+      localStorage.setItem("id_catatan",res.id)
+      location.reload();
     })
   }
+
+  function reset() {
+    localStorage.removeItem("id_catatan");
+    localStorage.removeItem("editJudul");
+    localStorage.removeItem("editCatatan");
+  
+    document.getElementById("id_catatan").value = "";
+    document.getElementById("judul").value = "";
+    document.getElementById("catatan").value = "";
+  
+    const btn = document.getElementById("btn");
+    btn.innerHTML = `<button type="submit">Tambah</button>`;
+    location.reload();
+  }
+  
+  async function hapus(id) {
+    await fetch(`http://127.0.0.1:8000/api/hapuscatatan/${id}`,{
+      method: 'POST',
+      headers:{
+        'Content-Type' : 'application/json',
+        'authorization' : `bearer ${localStorage.getItem("token")}`
+      },
+      body: {
+        id: id
+      }
+  }).then(async response => {
+    data = await response.json()
+    if(!response.ok){
+        throw new Error("Gagal mengirim data " + data.message);
+    }
+    console.log('Catatan berhasil dihapus:', data);
+    localStorage.removeItem("id_catatan");
+    localStorage.removeItem("editJudul");
+    localStorage.removeItem("editCatatan");
+    alert("Berhasil menghapus Data");
+    location.reload();
+}).catch(error => {
+    console.error("Error: ",error.message);
+})
+}

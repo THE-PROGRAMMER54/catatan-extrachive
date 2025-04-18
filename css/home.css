@@ -52,8 +52,35 @@
     resize: vertical;
   }
   
-  .note-form button {
+  .edit{
     padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--primary);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .batal{
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+
+  .batal:hover{
+    background-color: rgb(132, 4, 4) !important;
+  }
+
+  .tambah {
+    padding: 0.8rem;
+    width: 100%;
     border: none;
     border-radius: 8px;
     background-color: var(--primary);
