@@ -101,6 +101,14 @@ document.addEventListener("DOMContentLoaded",async function () {
     }
     
     btn.innerHTML = isiBtn;
+
+    const header = document.querySelector("#header")
+    if(id){
+      header.textContent = "Edit Catatan"
+    }else{
+      header.textContent = "Tambah Catatan"
+    }
+
     const resetButton = document.querySelector(".batal");
     if (resetButton) {
       resetButton.addEventListener("click", function () {
