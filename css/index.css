@@ -62,3 +62,39 @@ a {
   color: #4CAF50;
   text-decoration: none;
 }
+
+.borderloading{
+  background: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.borderloading:hover {
+  background: #45a049;
+}
+.loading{
+  width: 32px;
+  height: 32px;
+  animation: putar 1s linear infinite;
+}
+
+@keyframes putar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -12,7 +12,10 @@
     <form id="login" method="POST">
       <input type="email" id="email" name="email" placeholder="Email" required>
       <input type="password" id="password" name="password" min="8" placeholder="Password" required>
-      <button type="submit">Login</button>
+      <button id="btnsubmit" type="submit">Login</button>
+      <div class="borderloading" id="borderloading">
+        <img src="loading.svg" alt="loading" class="loading">
+      </div>
     </form>
     <p>Belum punya akun? <a href="regist.html">Daftar di sini</a></p>
   </div>
