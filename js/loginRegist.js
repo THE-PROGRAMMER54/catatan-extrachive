@@ -70,9 +70,9 @@ document.addEventListener("DOMContentLoaded", function () {
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
 
-          //   await fetch("http://127.0.0.1:8000/sanctum/csrf-cookie", {
-          //     credentials: "include",
-          //   });
+          await fetch("http://127.0.0.1:8000/sanctum/csrf-cookie", {
+            credentials: "include",
+          });
 
           const response = await fetch("http://127.0.0.1:8000/api/login", {
             method: "POST",
