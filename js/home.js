@@ -7,7 +7,7 @@ const checkUser = () => {
     if (cookie.indexOf(cname + "=") === 0) {
       const res = cookie.split("=")[1];
       if (res === "") document.location.href = "index.html";
-      return console.log("login", res);
+      return
     }
   }
   return (document.location.href = "index.html");
@@ -150,9 +150,9 @@ async function addcatatan(e) {
 
   await fetch(url, {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
-      authorization: "bearer " + localStorage.getItem("token"),
     },
     body: JSON.stringify({
       judul: document.getElementById("judul").value,
@@ -167,12 +167,12 @@ async function addcatatan(e) {
       console.log("Catatan berhasil disimpan:", data);
 
       if (id !== "") {
+        localStorage.clear()
         alert("Berhasil Mengedit Data");
       } else {
-        alert("Berhasil Menambahkan Data");
+       alert("Berhasil Menambahkan Data");
       }
-
-      location.reload();
+      window.location.reload()
     })
     .catch((error) => {
       console.error("Error: ", error.message);
@@ -183,9 +183,9 @@ async function addcatatan(e) {
 async function Edit(id) {
   await fetch(`http://127.0.0.1:8000/api/geteditcatatan/${id}`, {
     method: "POST",
+    credentials:'include',
     headers: {
       "Content-Type": "application/json",
-      authorization: `bearer ${localStorage.getItem("token")}`,
     },
     body: {
       id: id,
@@ -216,9 +216,9 @@ function reset() {
 async function hapus(id) {
   await fetch(`http://127.0.0.1:8000/api/hapuscatatan/${id}`, {
     method: "POST",
+    credentials:'include',
     headers: {
       "Content-Type": "application/json",
-      authorization: `bearer ${localStorage.getItem("token")}`,
     },
     body: {
       id: id,
@@ -234,6 +234,27 @@ async function hapus(id) {
       localStorage.removeItem("editJudul");
       localStorage.removeItem("editCatatan");
       alert("Berhasil menghapus Data");
+      location.reload();
+    })
+    .catch((error) => {
+      console.error("Error: ", error.message);
+    });
+}
+
+async function logout() {
+  await fetch(`http://127.0.0.1:8000/api/logout`, {
+    method: "POST",
+    credentials:'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  })
+    .then(async (response) => {
+      data = await response.json();
+      if (!response.ok) {
+        throw new Error("Gagal Logout data " + data.message);
+      }
+      alert("Berhasil Logout Data");
       location.reload();
     })
     .catch((error) => {
