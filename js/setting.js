@@ -27,7 +27,6 @@ async function dataUser() {
             throw new Error(`Gagal ambil data dari API`);
         }
         const res = await response.json();
-        console.log(res)   
         const username = document.getElementById("username")
         const email = document.getElementById("email")
         username.value = res.name
@@ -82,3 +81,69 @@ async function logout() {
       });
   }
   
+
+  async function ubahNameEmail(e) {
+    e.preventDefault()
+    await fetch(`http://127.0.0.1:8000/api/edituser`,{
+      method:"POST",
+      credentials:"include",
+      headers:{'Content-Type': "application/json"},
+      body: JSON.stringify({
+        name: document.getElementById("username").value,
+        email: document.getElementById("email").value
+      })
+    })
+    .then(async (response) => {
+      data = await response.json()
+      if(!response){
+        throw new Error("gagal mengganti username dan password anda " + data);
+      }
+    })
+    .catch((error) => {
+      console.log(error.message)
+    })
+  }
+  
+  async function ubahPassword(e) {
+    e.preventDefault();
+    
+    await fetch("http://127.0.0.1:8000/api/ubahpassword", {
+      method: "POST",
+      credentials: 'include',
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        password: document.getElementById("password").value,
+        new_password: document.getElementById("new_password").value,
+        confirm_password: document.getElementById("confirm_password").value
+      })
+    }).then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+      return alert("Gagal mengganti password anda: " + data.message);
+      }
+      alert("berhasil mengganti password anda");
+      window.location.reload()
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  }
+  
+  async function hapusakun(e) {
+    e.preventDefault()
+    const konfirmasi = confirm('Apakah Anda yakin akan menghapus akun Anda?')
+    if(!konfirmasi) return
+    await fetch("http://127.0.0.1:8000/api/hapususer",{
+      method:"POST",
+      headers:{"Content-Type" : "application/json"},
+      credentials:"include"
+    }).then(async (response) => {
+      const data = await response.json();
+      if (!response.ok) {
+      return alert("Gagal menghapus akun anda: " + data.message);
+      }
+      alert("berhasil menghapus akun anda");
+      window.location.reload()
+    }).catch((error) => {
+      console.log(error.message);
+    });
+  }

@@ -2,15 +2,16 @@ const checkUser = () => {
   const cname = "token"
   const cookies = document.cookie.split(';')
 
-  for (let cookie of cookies){
+  for (let cookie of cookies) {
     cookie = cookie.trim()
-    if(!cookie.indexOf(cname + "=") === 0){
+    if (cookie.indexOf(cname + "=") === 0) {
       const res = cookie.split("=")[1]
-      if(!res === "") window.history.back()
-      return
+      if (res !== "") {
+        window.location.href = "home.html"
+        return
+      }
     }
   }
-  return (window.history.back())
 }
 
 checkUser()
@@ -86,11 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           const email = document.getElementById("email").value;
           const password = document.getElementById("password").value;
-
-          await fetch("http://127.0.0.1:8000/sanctum/csrf-cookie", {
-            credentials: "include",
-          });
-
           const response = await fetch("http://127.0.0.1:8000/api/login", {
             method: "POST",
             credentials: "include",

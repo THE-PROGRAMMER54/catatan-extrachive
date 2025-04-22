@@ -17,7 +17,7 @@
     <!-- Ganti Username & Email -->
     <section class="form-section">
       <h3>Ganti Username & Email</h3>
-      <form method="post">
+      <form method="post" onsubmit="ubahNameEmail(event)">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Masukkan username baru">
 
@@ -31,15 +31,15 @@
     <!-- Ganti Password -->
     <section class="form-section">
       <h3>Ganti Password</h3>
-      <form method="post">
-        <label for="old-password">Password Lama</label>
-        <input type="password" id="old-password" name="old-password" placeholder="Masukkan password lama">
+      <form method="post" id="editform" onsubmit="ubahPassword(event)">
+        <label for="password">password Lama</label>
+        <input type="password" id="password" name="password" placeholder="Masukkan password lama" min="8" required>
 
-        <label for="new-password">Password Baru</label>
-        <input type="password" id="new-password" name="new-password" placeholder="Masukkan password baru">
+        <label for="new_password">Password Baru</label>
+        <input type="password" id="new_password" name="new_password" placeholder="Masukkan password baru" min="8" required>
 
-        <label for="confirm-password">Konfirmasi Password</label>
-        <input type="password" id="confirm-password" name="confirm-password" placeholder="Ulangi password baru">
+        <label for="confirm_password">Konfirmasi Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Ulangi password baru" required min="8">
 
         <button class="edit" type="submit">Ubah Password</button>
       </form>
@@ -49,7 +49,7 @@
     <section class="form-section delete-section">
       <h3>Hapus Akun</h3>
       <p class="footerdelete"><strong>Peringatan:</strong> Jika Anda menghapus akun, semua data Anda akan hilang secara permanen.</p>
-      <form method="post" onsubmit="return confirm('Apakah Anda yakin akan menghapus akun Anda?')">
+      <form method="post" onsubmit="hapusakun(event)">
         <button class="batal">Hapus Akun</button>
       </form>
     </section>

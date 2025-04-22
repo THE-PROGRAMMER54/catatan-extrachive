@@ -1,3 +1,4 @@
+console.log(document.referrer)
 const checkUser = () => {
   const cname = "token";
   const cookies = document.cookie.split(";");
@@ -98,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  setTimeout(getdata,3000)
+  setTimeout(getdata,1000)
 
   const id = localStorage.getItem("id_catatan");
   const judul = localStorage.getItem("editJudul");
