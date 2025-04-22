@@ -1,3 +1,20 @@
+const checkUser = () => {
+  const cname = "token"
+  const cookies = document.cookie.split(';')
+
+  for (let cookie of cookies){
+    cookie = cookie.trim()
+    if(!cookie.indexOf(cname + "=") === 0){
+      const res = cookie.split("=")[1]
+      if(!res === "") window.history.back()
+      return
+    }
+  }
+  return (window.history.back())
+}
+
+checkUser()
+
 document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("regist")) {
     const borderloading = document.getElementById("borderloading");

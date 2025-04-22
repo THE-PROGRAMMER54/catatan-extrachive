@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
-  getdata();
+  setTimeout(getdata,3000)
 
   const id = localStorage.getItem("id_catatan");
   const judul = localStorage.getItem("editJudul");
@@ -242,20 +242,23 @@ async function hapus(id) {
 }
 
 async function logout() {
+  const yakin = confirm("Apakah Kamu Yakin Ingin Logout?");
+  if (!yakin) return;
+
   await fetch(`http://127.0.0.1:8000/api/logout`, {
     method: "POST",
-    credentials:'include',
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
     },
   })
     .then(async (response) => {
-      data = await response.json();
+      const data = await response.json();
       if (!response.ok) {
         throw new Error("Gagal Logout data " + data.message);
       }
       alert("Berhasil Logout Data");
-      location.reload();
+      window.location.href = "index.html"
     })
     .catch((error) => {
       console.error("Error: ", error.message);
