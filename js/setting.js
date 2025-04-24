@@ -15,6 +15,15 @@ const checkUser = () => {
 
 checkUser()
 
+const loadinguser = document.getElementById("borderloadinguser")
+const loadingpass = document.getElementById("borderloadingpass")
+const loadingdelete = document.getElementById("borderloadingdelete")
+const edituser = document.getElementById("edituser")
+const editpass = document.getElementById("editpass")
+const deleteuser = document.getElementById("deleteuser")
+loadinguser.style.display = "none";
+loadingpass.style.display = "none";
+loadingdelete.style.display = "none";
 // get data user
 async function dataUser() {
     try {
@@ -84,6 +93,8 @@ async function logout() {
 
   async function ubahNameEmail(e) {
     e.preventDefault()
+    edituser.style.display = "none"
+    loadinguser.style.display = "flex"
     await fetch(`http://127.0.0.1:8000/api/edituser`,{
       method:"POST",
       credentials:"include",
@@ -98,15 +109,21 @@ async function logout() {
       if(!response){
         throw new Error("gagal mengganti username dan password anda " + data);
       }
+      alert(data.success)
     })
     .catch((error) => {
       console.log(error.message)
+    })
+    .finally(() => {
+      edituser.style.display = "block"
+      loadinguser.style.display = "none"
     })
   }
   
   async function ubahPassword(e) {
     e.preventDefault();
-    
+    editpass.style.display = "none"
+    loadingpass.style.display = "flex"
     await fetch("http://127.0.0.1:8000/api/ubahpassword", {
       method: "POST",
       credentials: 'include',
@@ -119,13 +136,17 @@ async function logout() {
     }).then(async (response) => {
       const data = await response.json();
       if (!response.ok) {
-      return alert("Gagal mengganti password anda: " + data.message);
+      return alert(data.error);
       }
       alert("berhasil mengganti password anda");
       window.location.reload()
     }).catch((error) => {
-      console.log(error.message);
-    });
+      console.log(error.error);
+    })
+    .finally(() => {
+      editpass.style.display = "block"
+      loadingpass.style.display = "none"
+    })
   }
   
   async function hapusakun(e) {
@@ -145,5 +166,5 @@ async function logout() {
       window.location.reload()
     }).catch((error) => {
       console.log(error.message);
-    });
+    })
   }

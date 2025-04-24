@@ -24,7 +24,10 @@
         <label for="email">Email</label>
         <input type="email" id="email" name="email" placeholder="Masukkan email baru">
 
-        <button class="edit" type="submit">Simpan Perubahan</button>
+        <button class="edit" id="edituser" type="submit">Simpan Perubahan</button>
+        <div class="borderloading" id="borderloadinguser">
+          <img src="loading.svg" alt="loading" class="loading">
+        </div>
       </form>
     </section>
 
@@ -41,7 +44,10 @@
         <label for="confirm_password">Konfirmasi Password</label>
         <input type="password" id="confirm_password" name="confirm_password" placeholder="Ulangi password baru" required min="8">
 
-        <button class="edit" type="submit">Ubah Password</button>
+        <button class="edit" id="editpass" type="submit">Ubah Password</button>
+        <div class="borderloading" id="borderloadingpass">
+          <img src="loading.svg" alt="loading" class="loading">
+        </div>
       </form>
     </section>
 
@@ -50,7 +56,10 @@
       <h3>Hapus Akun</h3>
       <p class="footerdelete"><strong>Peringatan:</strong> Jika Anda menghapus akun, semua data Anda akan hilang secara permanen.</p>
       <form method="post" onsubmit="hapusakun(event)">
-        <button class="batal">Hapus Akun</button>
+        <button id="deleteuser" class="batal">Hapus Akun</button>
+        <div class="borderloading" id="borderloadingdelete">
+          <img src="loading.svg" alt="loading" class="loading">
+        </div>
       </form>
     </section>
   </main>
